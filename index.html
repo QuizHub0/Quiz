@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Maker with Levels & Timer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Quiz Maker</h1>
+        <p>Select Level:</p>
+        <select id="level-select">
+            <option value="1">Level 1</option>
+            <option value="2">Level 2</option>
+        </select>
+        <button id="start-quiz">Start Quiz</button>
+        
+        <div id="quiz-section" style="display: none;">
+            <p id="timer">Time Left: 30s</p>
+            <div id="quiz"></div>
+            <button id="submit">Submit</button>
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
