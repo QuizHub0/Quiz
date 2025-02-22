@@ -1,17 +1,11 @@
 const quizData = {
     "1": [ // Level 1 Questions
         { question: "What is the capital of Nepal?", options: ["Kathmandu", "Pokhara", "Lalitpur", "Bhaktapur"], answer: "Kathmandu" },
-        { question: "What is 2 + 2?", options: ["3", "4", "5", "6"], answer: "4" },
-        { question: "Who wrote 'Muna Madan'?", options: ["Devkota", "Bhanu Bhakta", "Krishna Shah", "Laxmi Pd. Devkota"], answer: "Laxmi Pd. Devkota" },
-        { question: "Which planet is closest to the Sun?", options: ["Mars", "Venus", "Mercury", "Earth"], answer: "Mercury" },
-        { question: "Which gas do plants use for photosynthesis?", options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"], answer: "Carbon Dioxide" }
+        { question: "What is 2 + 2?", options: ["3", "4", "5", "6"], answer: "4" }
     ],
     "2": [ // Level 2 Questions
         { question: "Who discovered gravity?", options: ["Newton", "Einstein", "Galileo", "Hawking"], answer: "Newton" },
-        { question: "What is the largest mammal?", options: ["Elephant", "Blue Whale", "Giraffe", "Shark"], answer: "Blue Whale" },
-        { question: "What is the square root of 64?", options: ["6", "8", "10", "12"], answer: "8" },
-        { question: "What is the boiling point of water?", options: ["90°C", "100°C", "120°C", "80°C"], answer: "100°C" },
-        { question: "Which country has the most population?", options: ["USA", "India", "China", "Russia"], answer: "China" }
+        { question: "What is the largest mammal?", options: ["Elephant", "Blue Whale", "Giraffe", "Shark"], answer: "Blue Whale" }
     ]
 };
 
@@ -43,7 +37,9 @@ function loadQuiz(level) {
 
         q.options.forEach(option => {
             questionDiv.innerHTML += `
-                <input type="radio" name="q${index}" value="${option}"> ${option}<br>
+                <label>
+                    <input type="radio" name="q${index}" value="${option}"> ${option}
+                </label><br>
             `;
         });
 
@@ -71,8 +67,25 @@ function checkAnswers() {
 
     quizData[selectedLevel].forEach((q, index) => {
         const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
-        if (selectedOption && selectedOption.value === q.answer) {
-            score++;
+        const questionElements = document.querySelectorAll(`input[name="q${index}"]`);
+
+        if (selectedOption) {
+            if (selectedOption.value === q.answer) {
+                score++;
+                selectedOption.parentElement.style.color = "green"; // ✅ Correct answer (Green)
+                selectedOption.parentElement.innerHTML += " ✅";
+            } else {
+                selectedOption.parentElement.style.color = "red"; // ❌ Wrong answer (Red)
+                selectedOption.parentElement.innerHTML += " ❌";
+
+                // सही उत्तरलाई हरियो बनाउने
+                questionElements.forEach(option => {
+                    if (option.value === q.answer) {
+                        option.parentElement.style.color = "green";
+                        option.parentElement.innerHTML += " ✅ (Correct Answer)";
+                    }
+                });
+            }
         }
     });
 
